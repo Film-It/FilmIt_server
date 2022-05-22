@@ -1,10 +1,10 @@
-const port = 80,
-	express = require("express"),
-	app = express();
+const express = require("express"),
+	app = express(),
+	homeController = require("./controllers/homeController"),
+	layouts = require("express-ejs-layouts");
 
-app.get("/", (req, res) => {
-	res.send("Hello, Universe!");
-})
+app.set("port", process.env.PORT || 80);
+app.set("view engine", "ejs");
 
 app.use(
 	express.urlencoded({
@@ -13,6 +13,8 @@ app.use(
 );
 app.use(express.json());
 
-.listen(port, () => {
-	console.log(`The Express.js server: ${port}`);
+app.get("/name", homeController.respondWithName);
+
+app.listen(app.get("port"), () => {
+	console.log(`Server running at http://localhost: ${app.get("port")}`);
 });
