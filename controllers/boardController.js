@@ -15,7 +15,7 @@ const formatDate = (date) => {
 };
 
  //글 작성
- exports.uploadBoard =  async(req, res) => {
+ module.exports.uploadBoard =  async(req, res) => {
     
     const { title, content } = req.body;
     const image = req.file.location;
@@ -30,33 +30,50 @@ const formatDate = (date) => {
 
      try {
          const boardSave = await board.save({});
-         res.status(200).render('board', {boards});
+         res.redirect("/");
      } catch (error) {
-         res.status(400).send("upload error!");
+         res.status(500).send("upload error!");
      }
 
  }
 
  //글 조회
-exports.getboardsList = async(req, res) => {
+module.exports.getboardsList = async(req, res) => {
     try {
         const boardList = await board.find({});
         res.status(200).render('board', {boards});
     } catch(error) {
-        res.status(400).send({error:error.message});
+        res.status(500).send({error:error.message});
     }
 };
 
  //글 삭제
-exports.deleteBoard = async(req, res) => {
+module.exports.deleteBoard = async(req, res) => {
     const {id} = req.param;
     try {
         res.redirect("/");
     } catch (error) {
-        res.status(400).send("delete error!");
+        res.status(500).send("delete error!");
     }
 
 }
 
  //글 수정
+module.exports.editBoard = async(req, res) => {
+    const {id} = req.params;
+    const{title, content} = req.body;
+    try {
+        await board.findByIdAndUpdate (
+            id,
+            {title:title, content:content},
+            {new:true}
+        );
+        res.redirect("/")
+    } catch (error) {
+        res.stauts(500).send("update error!");
+    }
 
+    
+} 
+
+module.exports = boardController;

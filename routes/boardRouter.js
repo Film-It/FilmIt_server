@@ -1,6 +1,6 @@
 var express = require('express');
 var boardRouter = express.Router();
-var boardsController = require('../controllers/boardController');
+var boardController = require('../controllers/boardController');
 
 
 // 글 작성
@@ -16,5 +16,6 @@ boardRouter.get('/', boardController.getboardsList);
 boardRouter.delete('/:boardId', boardController.deleteBoard)
 
 //글 수정
+boardRouter.post('/:boardId', boardController.editBoard)
 
 module.exports = boardRouter;

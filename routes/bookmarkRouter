@@ -1,0 +1,9 @@
+var express = require('express');
+var bookmarkRouter = express.Router();
+var bookmarkController = require('../controllers/bookmarkController');
+
+
+// 북마크
+likeRouter.post('/:userId/bookmark', bookmarkController.bookmark);
+
+module.exports = bookmarkRouter;
