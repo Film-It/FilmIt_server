@@ -1,1 +1,3 @@
 node-v16.15.0-linux-x64
+.env
+node_modules/
