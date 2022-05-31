@@ -1,50 +1,65 @@
-module.exports = (sequelize, Sequelize) => {
-const user = sequelize.define("user", {
+const Sequelize = require('sequelize');
+
+module.exports = class User extends Sequelize.Model {
+	static init(sequelize) {
+		return super.init({
 	name: {
-		type: Sequelize.STRING(30)
+		type: Sequelize.STRING(30),
 	},
 	email: {
 		type: Sequelize.STRING(30),
-		primaryKey: true
+		unique: true,
+        allowNull: false,
 	},
-	userId: {
-		type: Sequelize.STRING(30)
+	userIdentifier: {
+		type: Sequelize.STRING(30),
+		unique: true,
 	},
 	passwd: {
-		type: Sequelize.STRING(30)
+		type: Sequelize.STRING(30),
 	},
 	nickname: {
-		type: Sequelize.STRING(30)
-	},
-	job: {
-		type: Sequelize.STRING(30)
+		type: Sequelize.STRING(30),
 	},
 	birth: {
-		type: Sequelize.DATEONLY
+		type: Sequelize.DATEONLY,
 	},
 	gender: {
-		type: Sequelize.STRING(10)
+		type: Sequelize.ENUM('female', 'male', 'non'),
 	},
 	profileIcon: {
-		type: Sequelize.STRING
+		type: Sequelize.STRING,
 	},
-	introduce: {
-		type: Sequelize.STRING
-	}
-	sido: {
-		type: type: Sequelize.STRING(20)
-	},
-	sigungu: {
-		type: Sequelize.STRING(20)
+	introduction: {
+		type: Sequelize.STRING,
 	},
 	isprivate: {
 		type: Sequelize.BOOLEAN,
-		defaultValue: false
+		defaultValue: false,
 	}
 },
 	{
-		timestamps: true
+		sequelize,
+		timestamps: true,
+		modelName: 'User',
+		tableName: 'users',
+		charset: 'utf8',
+		collate: 'utf8_general_ci',
 	});
-	return user;
 }
 
+static associate(db) {
+	// db.User.hasMany(db.Film);
+	// db.Film.belongsTo(db.User);
+    // db.User.belongsToMany(db.User, {
+    //   foreignKey: 'followingId',
+    //   as: 'Followers',
+    //   through: 'Follow',
+    // });
+    // db.User.belongsToMany(db.User, {
+    //   foreignKey: 'followerId',
+    //   as: 'Followings',
+    //   through: 'Follow',
+    // });
+}
+};
