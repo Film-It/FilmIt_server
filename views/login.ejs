@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="css/login.css">
+    <link rel="stylesheet" href="../public/css/login.css">
     <script src="https://kit.fontawesome.com/51db22a717.js" crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css2?family=Alata&display=swap" rel="stylesheet">
 </head>
@@ -21,7 +21,7 @@
             <div class="login-form-left-side">
                 <div class="login-top-wrap">
                     <span>Don't have an account?</span>
-                    <button class="create-account-btn shadow-light">Create Profile</button>
+                    <button type="button" style="cursor:pointer" onclick="location.href='signup'" class="create-account-btn shadow-light">Create Profile</button>
                 </div>
 		<form action="/login" method="post">
                 <div class="login-input-container">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
                 <div class="login-btn-wrap">
-                    <button class="login-btn" type="submit">Login</button>
+                    <button class="login-btn" style="cursor:pointer" type="submit">Login</button>
                     <a href="#" >Forgot password?</a>
                 </div>
 		</form>
