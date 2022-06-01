@@ -1,0 +1,112 @@
+html, body {
+    width: 100%;
+    height: 100%;
+}
+        
+#wrap {
+    width:100%;
+    height:100%;
+    margin: 0px auto;
+}
+        
+#head {
+    width: 100%;
+    height: 5%;
+    border-bottom: 1px solid black;
+    float: left;
+    font-size: 30px;
+}
+    
+/* 채팅방 목록 */
+#dmList {
+    background-color: white;
+    width : 23%;
+    height: 90%;
+    float: left;
+    border-right: 1px solid gray;
+}
+#dmListAttribute {
+    height: 100px;
+    border-bottom: 1px solid gray;
+    padding: 5px;
+}
+#ListProfile{
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+
+#ListNickname{
+    float: left;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+#ListTime {
+    float:right;
+    margin-right: 10px;
+    margin-top: 20px;
+}
+#ListQuan{
+    background-color: #FCC003;
+    width: 25px;
+    border-radius: 100%;
+    margin-left: 30px;
+    margin-top:5px;
+    text-align: center;
+}
+#createDM{
+    height: 150px;
+    text-align: center;
+    font-size: large;
+    font-weight: 300;
+    margin-top: 80px;
+}
+
+/* 채팅방 내용 */
+#dmContent {
+    width: 75%;
+    height: 80%;
+    float: left;
+}
+#receiver {
+    float:left;
+    height: 100%;
+}
+#me {
+    float:right;
+    height: 100%;
+}
+#profile {
+    float:left;
+    margin-top: 40px;
+    margin-left: 40px;
+}
+#message {
+    background-color: #D6D8E0 ;
+    width: 200px; 
+    height: 70px;
+    margin-left: 40px;
+    margin-right:30px;
+    padding-left: 20px;
+    padding-top: 10px;
+    border-radius: 25px;
+    margin-top: 30px;
+    float:right;
+    font-size: 20px;
+}
+#dmSend {
+    background-color:#D6D8E0;
+    width: 50%;
+    height: 7%;
+    float: left;
+    border-radius: 25px;
+    margin-left: 20%;
+}
+
+#messageInput {
+    padding-left: 80%;
+    font-size: 20px;
+    font-weight: lighter;
+    line-height: 70px;
+    margin-right: 40px;
+}
