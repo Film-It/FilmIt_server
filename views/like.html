@@ -1,0 +1,397 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Film It</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="../public/css/like.css">
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+</head>
+<body>
+    <header style="position: fixed; width: 100%; z-index: 2;">
+        <div class="logo">
+            <a href="#">
+                <img style="width: 60px;" 
+                src="http://image.kyobobook.co.kr/newimages/giftshop_new/goods/400/1843/hot1629448723081.jpg" alt="">
+                <span class = "title">Film It</span>
+            </a>         
+        </div>
+
+            <div class="search-field">
+                <i class='bx bx-search'></i>
+                <input type="text">
+             </div> 
+
+            <button type="button" class="btn btn-add dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" >
+            Add
+            </button>
+              <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#">
+                  <i class='bx bx-message-square-add icon' ></i>
+                    필름 추가
+                  </a>
+                </li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">
+                  <i class='bx bx-message-square-add icon' ></i>
+                    게시글 추가
+                  </a>
+              </li>
+              </ul>
+    </header>
+
+    <nav class="sidebar" style="width: 20%;">
+        <div style="display:flex; flex-direction:column; align-items:center; position:relative; top:50px;">
+            <div class = "box">
+                <a href="#">
+                    <img class="profile" 
+                    src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png" alt="">
+                </a>
+            </div>
+            <div style="font-size: 25px;">
+                nickname
+            </div>
+            <div>
+                @lululala123
+            </div>
+        </div>
+
+        <div style="display:flex; flex-direction:row; justify-content:center; justify-content:space-around; 
+        align-items: center; text-align: center; position:relative; top:100px;">
+            <div>
+                <div>123</div>
+                <span>Posts</span>
+            </div>
+            <div>
+                <a href="#">
+                    <div>123</div>
+                    <span>Followers</span>
+                </a>
+            </div>
+            <div>
+                <a href="#">
+                    <div>123</div>
+                    <span>Following</span>
+                </a>
+            </div>
+        </div>
+        
+
+        <div class="menu-bar">
+            <div class="menu" style="display:flex; flex-direction:column; position: relative; top:140px;">
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-film icon' ></i>
+                            <span class="text nav-text">Film</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">                            
+                            <i class='bx bx-bell icon'></i>
+                            <span class="text nav-text">Notifications</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bxs-paper-plane icon'></i>
+                            <span class="text nav-text">Direct Message</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bx-heart icon' ></i>
+                            <span class="text nav-text">Like</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                          <i class='bx bx-bookmark icon' ></i>
+                            <span class="text nav-text">Bookmark</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                        <a href="#">
+                            <i class='bx bxs-cog icon'></i>
+                            <span class="text nav-text">Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="bottom-content"  style="display:flex; flex-direction:column; position: relative; top:-250px; right: -28px;">
+                <li class="nav-link">
+                    <a href="#">
+                        <i class='bx bx-log-out icon' ></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+                
+            </div>
+        </div>
+
+    </nav>
+
+    <input type="checkbox" id="popup">
+        <label for="popup">좋아요 123개</label>
+
+        
+        <div>
+            <div>
+                <label for="popup">
+                    <i class='bx bx-left-arrow-alt'></i>
+                    <span>LIKE</span>
+                </label>
+            </div>
+
+            <!--좋아요 누른 사용자 목록-->
+            <div class = "clicked_like">
+                <div style="display: flex; flex-direction:row; justify-content: space-between;">
+                    <div style="display:flex; flex-direction:row; align-items:center;">
+                        <div class = "likebox">
+                            <a href="#">
+                                <img class="profile" 
+                                src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png" alt="">
+                            </a>
+                        </div>
+                            <div style = "font-size: 25px;">
+                                nickname
+                            </div>
+                    </div>
+                    <div class = "followicon">
+                        <button type="button" class="followbtn">follow</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction:row; justify-content: space-between;">
+                    <div style="display:flex; flex-direction:row; align-items:center;">
+                        <div class = "likebox">
+                            <a href="#">
+                                <img class="profile" 
+                                src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png" alt="">
+                            </a>
+                        </div>
+                            <div style = "font-size: 25px;">
+                                nickname
+                            </div>
+                    </div>
+                    <div class = "followicon">
+                        <button type="button" class="unfollowbtn">unfollow</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction:row; justify-content: space-between;">
+                    <div style="display:flex; flex-direction:row; align-items:center;">
+                        <div class = "likebox">
+                            <a href="#">
+                                <img class="profile" 
+                                src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png" alt="">
+                            </a>
+                        </div>
+                            <div style = "font-size: 25px;">
+                                nickname
+                            </div>
+                    </div>
+                    <div class = "followicon">
+                        <button type="button" class="unfollowbtn">unfollow</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction:row; justify-content: space-between;">
+                    <div style="display:flex; flex-direction:row; align-items:center;">
+                        <div class = "likebox">
+                            <a href="#">
+                                <img class="profile" 
+                                src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png" alt="">
+                            </a>
+                        </div>
+                            <div style = "font-size: 25px;">
+                                nickname
+                            </div>
+                    </div>
+                    <div class = "followicon">
+                        <button type="button" class="unfollowbtn">unfollow</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction:row; justify-content: space-between;">
+                    <div style="display:flex; flex-direction:row; align-items:center;">
+                        <div class = "likebox">
+                            <a href="#">
+                                <img class="profile" 
+                                src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png" alt="">
+                            </a>
+                        </div>
+                            <div style = "font-size: 25px;">
+                                nickname
+                            </div>
+                    </div>
+                    <div class = "followicon">
+                        <button type="button" class="unfollowbtn">unfollow</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction:row; justify-content: space-between;">
+                    <div style="display:flex; flex-direction:row; align-items:center;">
+                        <div class = "likebox">
+                            <a href="#">
+                                <img class="profile" 
+                                src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png" alt="">
+                            </a>
+                        </div>
+                            <div style = "font-size: 25px;">
+                                nickname
+                            </div>
+                    </div>
+                    <div class = "followicon">
+                        <button type="button" class="followbtn">follow</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction:row; justify-content: space-between;">
+                    <div style="display:flex; flex-direction:row; align-items:center;">
+                        <div class = "likebox">
+                            <a href="#">
+                                <img class="profile" 
+                                src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png" alt="">
+                            </a>
+                        </div>
+                            <div style = "font-size: 25px;">
+                                nickname
+                            </div>
+                    </div>
+                    <div class = "followicon">
+                        <button type="button" class="followbtn">follow</button>
+                    </div>
+                </div>
+                
+                <div style="display: flex; flex-direction:row; justify-content: space-between;">
+                    <div style="display:flex; flex-direction:row; align-items:center;">
+                        <div class = "likebox">
+                            <a href="#">
+                                <img class="profile" 
+                                src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png" alt="">
+                            </a>
+                        </div>
+                            <div style = "font-size: 25px;">
+                                nickname
+                            </div>
+                    </div>
+                    <div class = "followicon">
+                        <button type="button" class="unfollowbtn">unfollow</button>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction:row; justify-content: space-between;">
+                    <div style="display:flex; flex-direction:row; align-items:center;">
+                        <div class = "likebox">
+                            <a href="#">
+                                <img class="profile" 
+                                src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png" alt="">
+                            </a>
+                        </div>
+                            <div style = "font-size: 25px;">
+                                nickname
+                            </div>
+                    </div>
+                    <div class = "followicon">
+                        <button type="button" class="unfollowbtn">unfollow</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <label for="popup"></label>
+        </div> 
+
+
+        <!-- ==== 좋아요 누른 게시물 띄우기 ====-->
+
+        <!-- 좋아요 피드 텍스트 -->
+        <div class = "likefeed" style = "border-bottom: solid 5px rgb(155, 171, 194); width: 15%; position: relative; left: 25%; text-align: center; padding-top: 100px; padding-bottom: 10px;">
+            <div style="display: flex; justify-content: flex-start;">
+                <div style="z-index: 1;">
+                    <i class='bx bxs-heart'></i> 
+                    <span>Like</span>
+                 </div>
+            </div>
+        </div>
+
+        <!-- 좋아요 피드 -->
+        <div style="display: flex; text-align: center; justify-content:end; padding-top: 62px;">
+            <div style="width:80%;" >
+                <div style="border:solid 1px rgb(155, 171, 194); background-color: #f5f5ff; margin:20px 80px 80px 80px; height:400px;">
+                    <div>
+                        필름
+                    </div>
+                </div>
+                <div style="border:solid 1px rgb(155, 171, 194); background-color: #f5f5ff ; margin:20px 80px 80px 80px; height:400px;">
+                    <div>
+                        필름
+                    </div>
+                </div>
+                <div style="border:solid 1px rgb(155, 171, 194); background-color: #f5f5ff ; margin:20px 80px 80px 80px; height:400px;">
+                    <div>
+                        필름
+                    </div>
+                </div>
+                <div style="border:solid 1px rgb(155, 171, 194); background-color: #f5f5ff ; margin:20px 80px 80px 80px; height:400px;">
+                    <div>
+                        필름
+                    </div>
+                </div>
+               
+            </div>
+        </div> 
+    
+
+        <!-- ==== 북마크 한 게시물 띄우기 ==== -->
+
+        <!-- <div class = "bookmarkfeed" style = "border-bottom: solid 5px rgb(155, 171, 194); width: 15%; position: relative; left: 25%; text-align: center; padding-top: 100px; padding-bottom: 10px;">
+            <div style="display: flex; justify-content: flex-start;">
+                <div style="z-index: 1;">
+                    <i class='bx bxs-bookmark' ></i> 
+                    <span>Book Mark</span>
+                 </div>
+            </div>
+        </div> -->
+
+        <!-- 북마크 피드 -->
+        <!-- <div style="display: flex; text-align: center; justify-content:end; padding-top: 62px;">
+            <div style="width:80%;" >
+                <div style="border:solid 1px rgb(155, 171, 194); background-color: #f5f5ff; margin:20px 80px 80px 80px; height:400px;">
+                    <div>
+                        필름
+                    </div>
+                </div>
+                <div style="border:solid 1px rgb(155, 171, 194); background-color: #f5f5ff ; margin:20px 80px 80px 80px; height:400px;">
+                    <div>
+                        필름
+                    </div>
+                </div>
+                <div style="border:solid 1px rgb(155, 171, 194); background-color: #f5f5ff ; margin:20px 80px 80px 80px; height:400px;">
+                    <div>
+                        필름
+                    </div>
+                </div>
+                <div style="border:solid 1px rgb(155, 171, 194); background-color: #f5f5ff ; margin:20px 80px 80px 80px; height:400px;">
+                    <div>
+                        필름
+                    </div>
+                </div>
+               
+            </div>
+        </div> -->
+
+        
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>
