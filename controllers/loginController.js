@@ -10,10 +10,3 @@ exports.postedLogin = (req, res) => {
 	let passwd = req.body.passwd;
 	res.send("POST Successful!");
 };
-
-// exports.passport.authenticate('local', {
-//     //성공시, 메인페이지 이동
-//     //실패시 로그인 페이지 이동
-//     successRedirect: '/',
-//     failureRedirect: '/login'
-// })
