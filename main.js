@@ -5,10 +5,6 @@ const express = require("express"),
 	userController = require("./controllers/userController"),
 	signupController = require("./controllers/signupController"),
 	layouts = require("express-ejs-layouts"),
-	session = require('express-session'),
-	cookieParser = require('cookie-parser'),
-	passport = require('passport'),
-	LocalStrategy = require('passport-local').Strategy,
 	db = require("./models/index");
 
 app.set("port", process.env.PORT || 80);
@@ -22,8 +18,6 @@ app.use(
 	})
 );
 app.use(express.json());
-app.use(passport.initialize());
-app.use(passport.session());
 
 db.sequelize.sync({ force: true })
   .then(() => {

@@ -1,6 +1,4 @@
 
-const passport = require('passport'), LocalStrategy = require('passport-local').Strategy;
-
 exports.showLogin = (req, res) => {
         res.render("login");
 };
