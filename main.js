@@ -6,6 +6,7 @@ const express = require("express"),
 	signupController = require("./controllers/signupController"),
 	layouts = require("express-ejs-layouts"),
 	session = require('express-session'),
+	cookieParser = require('cookie-parser'),
 	passport = require('passport'),
 	LocalStrategy = require('passport-local').Strategy,
 	db = require("./models/index");
@@ -66,12 +67,27 @@ passport.deserializeUser(function(id, done) {   //읽기
 app.get("/name", homeController.respondWithName);
 app.get("/login", loginController.showLogin);
 // app.post("/login", loginController.postedLogin);
-app.post("/login", passport.authenticate('local', {
-    //성공시, 메인페이지 이동
-    //실패시 로그인 페이지 이동
-    successRedirect: '/',
-    failureRedirect: '/login'
-}))
+app.post("/login", (req,res, next)=> {
+    passport.authenticate('local', (err, user, info) => {
+        if(err){
+            console.error(err);
+            return next(err);
+        }
+        if(info){
+            return res.status(401).send(info.reason);
+        }
+        
+        // passport.login
+        return req.login(user, async(loginErr) => {
+            if(loginErr){
+                console.error(loginErr);
+                return next(loginErr);
+            }
+
+            return res.json(user);
+        })
+    })(req, res, next);
+});
 app.get("/users", userController.getAllUsers);
 app.get("/signup", signupController.showSignup);
 app.post("/signup", signupController.postedSignup);
