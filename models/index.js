@@ -29,4 +29,10 @@ Comment.associate(db);
 Chattingmsg.associate(db);
 Chattingroom.associate(db);
 
+// User.passportLocalSequelize.attachToUser(User, {
+//     usernameField: 'email',
+//     hashField: 'passwd',
+//     saltFiedl: 'mysalt'
+// });
+
 module.exports = db;

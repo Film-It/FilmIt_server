@@ -16,7 +16,7 @@ module.exports = class User extends Sequelize.Model {
 		unique: true,
 	},
 	passwd: {
-		type: Sequelize.STRING(30),
+		type: Sequelize.STRING(1024),
 	},
 	nickname: {
 		type: Sequelize.STRING(30),
@@ -36,6 +36,9 @@ module.exports = class User extends Sequelize.Model {
 	isprivate: {
 		type: Sequelize.BOOLEAN,
 		defaultValue: false,
+	},
+	mysalt: {
+		type: Sequelize.STRING
 	}
 },
 	{
