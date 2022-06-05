@@ -1,13 +1,15 @@
 const model = require('../models');
+const bcrypt = require('bcrypt');
 
 exports.showSignup = (req, res) => {
     res.render("signup");
 };
 
-exports.postedSignup = (req, res) => {
+exports.postedSignup = async (req, res) => {
+    let hash = await bcrypt.hash(req.body.passwd, 12);
 
     //아이디 중복 확인
-    model.User.findOne({ where: {email:req.body.email}})
+    await model.User.findOne({ where: {email:req.body.email}})
     .then(function(data)
     {
         if((data == null || data == undefined) === false){
@@ -17,7 +19,7 @@ exports.postedSignup = (req, res) => {
         model.User.create({
 	        userIdentifier : req.body.userIdentifier,
         	email : req.body.email,
-	        passwd : req.body.passwd,
+	        passwd : hash,
         	name : req.body.name,
         	nickname : req.body.nickname,
         	birth : req.body.birth,
