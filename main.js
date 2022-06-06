@@ -7,7 +7,10 @@ const express = require("express"),
 	signupController = require("./controllers/signupController"),
 	cookieParser = require('cookie-parser'),
 	layouts = require("express-ejs-layouts"),
-	db = require("./models/index");
+	db = require("./models/index"),
+  pageRouter = require('./routes/pages');
+
+const { isLoggedIn, isNotLoggedIn } = require('./routes/middlewares');
 
 app.set("port", process.env.PORT || 80);
 app.set("view engine", "ejs");
@@ -18,8 +21,13 @@ const passport = require('passport');
 const passportConfig = require('./passport');
 passportConfig();
 const session = require('express-session');
+// const nunjucks = require('nunjucks');
+// nunjucks.configure('views', {
+//   express: app,
+//   watch: true
+// });
 
-db.sequelize.sync({ force: true })
+db.sequelize.sync({ force: false })
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })
@@ -29,9 +37,9 @@ db.sequelize.sync({ force: true })
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cookieParser('secret'));
+app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(session({
-    secret:'secret',
+    secret:process.env.COOKIE_SECRET,
     cookie: {
       maxAge: 4000000
     },
@@ -85,7 +93,7 @@ app.use(passport.session());
 // router.get("/login", loginController.login);
 app.get("/login", loginController.showLogin);
 
-app.post('/login', (req,res, next)=> {
+app.post('/login', isNotLoggedIn, (req,res, next)=> {
   passport.authenticate('local', (err, user, info) => {
       if(err){
           console.error(err);
@@ -102,54 +110,22 @@ app.post('/login', (req,res, next)=> {
               return next(loginErr);
           }
 
-          return res.redirect('/');
+          return res.redirect('/profile');
       })
   })(req, res, next);
 });
 
-// router.post("/login",
-//   passport.authenticate("local", {
-//     successRedirect: "/",
-//     failureRedirect: "/login"
-//   })
-// );
-// app.get('/login', function(req, res, next) {
-// 	let userId = "";
-// 	if(req.cookies['loginId'] !== undefined){
-// 	  console.log(req.cookies['loginId']);
-// 	  userId = req.cookies['rememberId'];
-// 	}
-// 	res.render('login', {userId: userId});
-//   });
-// router.post("/login", loginController.authenticate);
-
 app.get("/users", userController.getAllUsers);
-app.get("/signup", signupController.showSignup);
+app.get("/signup", isNotLoggedIn, signupController.showSignup);
 app.post("/signup", signupController.postedSignup);
 
-// passport.use(new LocalStrategy({
-//     usernameField: 'email',
-//     passwordField: 'passwd'
-//   },
-//   function(username, password, done) {
-//     let sql = 'SELECT * FROM USER WHERE ID=? AND PWD=?';
-//     mysql.query(sql , [username, password], function (err, result) {
-//       if(err) console.log('mysql 에러');  
-
-//       // 입력받은 ID와 비밀번호에 일치하는 회원정보가 없는 경우   
-//       if(result.length === 0){
-//         console.log("결과 없음");
-//         return done(null, false, { message: 'Incorrect' });
-//       }else{
-//         console.log(result);
-//         let json = JSON.stringify(result[0]);
-//         let userinfo = JSON.parse(json);
-//         console.log("userinfo " + userinfo);
-//         return done(null, userinfo);  // result값으로 받아진 회원정보를 return해줌
-//       }
-//     })
-//   }
-// ));
+// 로그아웃
+app.get('/logout', isLoggedIn, (req, res, next) => {
+  req.logout((err) => {// req.user 객체 제거
+    if (err) { return next(err); }
+    res.redirect('/login');
+  }); 
+});
 
 // //로그 아웃 처리
 // app.get('/logout',(req,res)=>{
@@ -163,8 +139,8 @@ app.post("/signup", signupController.postedSignup);
 //     });
 // });
 
-
-app.get("/", homeController.showHome);
+// app.get("/", homeController.showHome);
+app.use('/', pageRouter);
 
 app.listen(app.get("port"), () => {
 	console.log(`Server running at http://localhost: ${app.get("port")}`);
