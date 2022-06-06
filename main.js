@@ -123,7 +123,9 @@ app.post("/signup", signupController.postedSignup);
 app.get('/logout', isLoggedIn, (req, res, next) => {
   req.logout((err) => {// req.user 객체 제거
     if (err) { return next(err); }
+    req.session.destroy((err) => {
     res.redirect('/login');
+    })
   }); 
 });
 
