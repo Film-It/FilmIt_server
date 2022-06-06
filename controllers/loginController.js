@@ -6,21 +6,21 @@ exports.showLogin = (req, res) => {
     res.render("login");
 }
 
-exports.postedLogin = (req, res) => {
-	let email = req.body.email;
-	let passwd = req.body.passwd;
+// exports.postedLogin = (req, res) => {
+// 	let email = req.body.email;
+// 	let passwd = req.body.passwd;
 
-    let result = User.findOne({
-        where:{email, passwd}
-    })
+//     let result = User.findOne({
+//         where:{email, passwd}
+//     })
 
-    req.session.uid = req.body.id;
-    req.session.isLogin = true;
+//     req.session.uid = req.body.id;
+//     req.session.isLogin = true;
 
-    req.session.save(()=>{
-        res.redirect('/');
-    })
-};
+//     req.session.save(()=>{
+//         res.redirect('/');
+//     })
+// };
 
 // module.exports = {
 //     login: (req, res) => {
