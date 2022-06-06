@@ -10,13 +10,13 @@ exports.postedSignup = async (req, res) => {
 
     //아이디 중복 확인
     await model.User.findOne({ where: {email:req.body.email}})
-    .then(function(data)
+    .then(async function(data)
     {
         if((data == null || data == undefined) === false){
             res.json({result:false, message:'이미 가입된 이메일입니다.'})
         }
         //데이터 삽입
-        model.User.create({
+        await model.User.create({
 	        userIdentifier : req.body.userIdentifier,
         	email : req.body.email,
 	        passwd : hash,
