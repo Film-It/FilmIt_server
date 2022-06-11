@@ -1,7 +1,8 @@
-const db = require("../models/index"),
-User = db.User;
+const model = require("../models"),
+User = model.User,
+Post = model.Post;
 
-exports.getAllUsers = async (req, res) => {
+exports.getAllUsers = async (req, res, next) => {
     try{
         data = await User.findAll();
         console.log(data);
@@ -11,4 +12,15 @@ exports.getAllUsers = async (req, res) => {
             message: err.message
         });
     }
+    next();
 };
+
+exports.uploadPost = async (req, res) => {
+    await model.Post.create({
+        userId : req.body.userId,
+        title : req.body.post_title,
+        content : req.body.content
+    });
+
+    res.redirect('/profile');
+}
