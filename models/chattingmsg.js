@@ -18,6 +18,7 @@ module.exports = class Chattingmsg extends Sequelize.Model {
   }
 
   static associate(db) {
-    // db.Chattingmsg.belongsTo(db.User);
+    db.Chattingmsg.belongsTo(db.User);
+    db.Chattingmsg.belongsTo(db.Chattingroom);
   }
 };

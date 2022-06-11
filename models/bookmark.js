@@ -14,7 +14,7 @@ module.exports = class Bookmark extends Sequelize.Model {
   }
 
   static associate(db) {
-    // db.Comment.belongsTo(db.User);
-    // db.Comment.belongsTo(db.Post);
+    db.Bookmark.belongsTo(db.User);
+    db.Bookmark.belongsTo(db.Post);
   }
 };

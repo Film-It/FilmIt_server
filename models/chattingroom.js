@@ -18,7 +18,12 @@ module.exports = class Chattingroom extends Sequelize.Model {
   }
 
   static associate(db) {
-    // db.Chattingroom.hasMany(db.Chattingmsg);
-    // db.Chattingroom.belongsTo(db.User);
+    db.Chattingroom.hasMany(db.Chattingmsg, {
+      foreignKey: 'id',
+      allowNull: false,
+      constraints: true,
+      onDelete: 'cascade'
+    });
+    db.Chattingroom.belongsTo(db.User);
   }
 };

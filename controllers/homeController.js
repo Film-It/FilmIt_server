@@ -1,3 +1,3 @@
-exports.respondWithName = (req, res) => {
+exports.showHome = (req, res) => {
 	res.render("index");
 };

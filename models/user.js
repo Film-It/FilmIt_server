@@ -16,7 +16,7 @@ module.exports = class User extends Sequelize.Model {
 		unique: true,
 	},
 	passwd: {
-		type: Sequelize.STRING(30),
+		type: Sequelize.STRING(1024),
 	},
 	nickname: {
 		type: Sequelize.STRING(30),
@@ -36,6 +36,9 @@ module.exports = class User extends Sequelize.Model {
 	isprivate: {
 		type: Sequelize.BOOLEAN,
 		defaultValue: false,
+	},
+	mysalt: {
+		type: Sequelize.STRING
 	}
 },
 	{
@@ -49,17 +52,48 @@ module.exports = class User extends Sequelize.Model {
 }
 
 static associate(db) {
-	// db.User.hasMany(db.Film);
-	// db.Film.belongsTo(db.User);
-    // db.User.belongsToMany(db.User, {
-    //   foreignKey: 'followingId',
-    //   as: 'Followers',
-    //   through: 'Follow',
-    // });
-    // db.User.belongsToMany(db.User, {
-    //   foreignKey: 'followerId',
-    //   as: 'Followings',
-    //   through: 'Follow',
-    // });
+	db.User.hasMany(db.Film, {
+		foreignKey: 'id',
+		allowNull: false,
+		constraints: true,
+		onDelete: 'cascade'
+	});
+	db.User.hasMany(db.Comment, {
+		foreignKey: 'id',
+		allowNull: false,
+		constraints: true,
+		onDelete: 'cascade'
+	});
+	db.User.hasMany(db.Chattingroom, {
+		foreignKey: 'id',
+		allowNull: false,
+		constraints: true,
+		onDelete: 'cascade'
+	});
+    db.User.belongsToMany(db.User, {
+		foreignKey: 'followingId',
+		as: 'Followers',
+		through: 'follows',
+		foreignKeyConstraint:true
+	  });
+	  db.User.belongsToMany(db.User, {
+		foreignKey: 'followerId',
+		as: 'Followings',
+		through: 'follows',
+		foreignKeyConstraint:true
+	  });
+    db.User.belongsToMany(db.Post, {
+      foreignKey: 'id',
+      through: 'Like',
+	  as: 'Liked' 
+    });
+    db.User.belongsToMany(db.Post, {
+		through: 'bookmark',
+      foreignKey: 'id',
+	  as: 'Bookmarked',
+	  allowNull: false,
+	  constraints: true,
+	  onDelete: 'cascade'
+    });
 }
 };

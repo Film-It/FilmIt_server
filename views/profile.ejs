@@ -6,8 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Film It</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="../public/css/navigation.css">
+    <link rel="stylesheet" href="../public/css/profile.css">
+    
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+    <!-- Google Icons-->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
 
     <style>
         .box {
@@ -30,37 +34,7 @@
 
 </head>
 <body>
-    <!-- <header id="navbar navbar-expand-lg navbar-light bg-light" >  
-        <div class="container-fluid" style="justify-content:space-between">
-            <div>
-                <a href="#"><img style="width:60px;"
-                    src="http://image.kyobobook.co.kr/newimages/giftshop_new/goods/400/1843/hot1629448723081.jpg" alt=""></a>
-                <a class="navbar-brand" href="#" style="font-size: 30px;">Film It</a>
-            </div>
-         
-              <input class="form-control me-2" style="width: 400px" type="search" placeholder="Search" aria-label="Search">
-
-              <div class="btn-group">
-                <button type="button" class="btn btn-add dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgb(112, 124, 167); color: white;">
-                  Add
-                </button>
-                <ul class="dropdown-menu" style="text-align:center;">
-                  <li><a class="dropdown-item" href="#">
-                    <i class='bx bx-message-square-add icon' ></i>
-                      필름 추가
-                    </a>
-                  </li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="#">
-                    <i class='bx bx-message-square-add icon' ></i>
-                      게시글 추가
-                    </a>
-                </li>
-                </ul>
-              </div>
-        </div>
-    </header>  -->
-
+    <script src="profile.js"></script>
     <header style="position: fixed; width: 100%;">
         <div class="logo">
             <a href="#">
@@ -69,9 +43,6 @@
                 <span class = "title">Film It</span>
             </a>         
         </div>
-        <!-- <div class="header-right"> -->
-            <!-- <input class="form-control me-2" style="width: 400px" type="search" placeholder="Search" aria-label="Search"> -->
-
             <div class="search-field">
                 <i class='bx bx-search'></i>
                 <input type="text">
@@ -93,8 +64,6 @@
                   </a>
               </li>
               </ul>
-
-        <!-- </div> -->
     </header>
 
     <nav class="sidebar" style="width: 20%;">
@@ -152,7 +121,7 @@
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="#"  onclick="location.href='dm'">
                             <i class='bx bxs-paper-plane icon'></i>
                             <span class="text nav-text">Direct Message</span>
                         </a>
@@ -183,7 +152,7 @@
 
             <div class="bottom-content"  style="display:flex; flex-direction:column; position: relative; top:-250px; right: -28px;">
                 <li class="nav-link">
-                    <a href="#">
+                    <a href="#"  onclick="location.href='logout'">
                         <i class='bx bx-log-out icon' ></i>
                         <span class="text nav-text">Logout</span>
                     </a>
@@ -194,6 +163,98 @@
 
     </nav>
 
+<!-- navigation bar 제외 영역 -->
+<div class="feed" style="display: flex; justify-content: right; padding-top: 60px;">
+    <div style="width: 80%; height: 1000px;">
+        <div class="header">  </div>
+        <div class="films_post" style="display:flex; flex-direction:row; margin: 15px; height: 60px; border-top: solid 1.5px lightgray; border-bottom: solid 1.5px lightgray;">
+                <a class="button" href="#" style="border-right: solid 1.5px lightgray;">
+                        Films
+                </a>
+                <a class="button" href="#">
+                        Posts
+                </a>
+        </div>
+
+        <div style="display: flex; justify-content:end;">
+            <div style="width:100%;" >
+
+            <!--필름 1개-->
+            <div style="border:solid 1px rgb(255, 255, 255); background-color: rgb(255, 255, 255); margin:35px; height:480px;">
+                   
+                <div style = "margin : 10px 80px; display: flex; flex-direction: row; justify-content: space-between;">
+                    <div>
+                        <b style="font-size: 20px; padding-left: 80px;">Film Title</b>
+                        <span style="color: rgb(65, 71, 78); font-size: 15px; padding-left: 5px;">2022.05.01</span>
+                    </div>
+
+                    <div>
+                        <span style="color: rgb(28, 80, 136); font-size: 20px; justify-content: end;">5 Posts</span>
+                    </div>
+                </div>
+                
+                <!--필름 & 이미지 넣는 곳-->
+                <div style ="height: 300px; width: 1900px; position: absolute;"> 
+                    <img src="./images/film3.png" width="100%" height="300px">
+                    
+                </div>
+                <div style="height: 300px; position: relative; padding-left: 100px; display: flex; flex-direction: row;">
+                    <button class="front_btn" ><i class='bx bx-chevron-left'></i></button>
+                    
+                    <img src="https://cdn.pixabay.com/photo/2017/08/02/00/16/couple-2568954_1280.jpg" style="height: 83%; padding-left: 12px; padding-top: 58px; width: 19%;">
+                    <img src="https://cdn.pixabay.com/photo/2016/02/07/19/50/mountaineer-1185474_1280.jpg" style="height: 83%; padding-left: 7px; padding-top: 58px; width: 18.5%;">
+                    <img src="https://cdn.pixabay.com/photo/2017/03/07/20/35/climb-2125148_1280.jpg" style="height: 83%; padding-left: 7px; padding-top: 58px; width: 18.5%;">
+                    <img src="https://cdn.pixabay.com/photo/2016/11/22/19/25/man-1850181_1280.jpg" style="height: 83%; padding-left: 7px; padding-top: 58px; width: 18.5%;">
+                    <img src="https://cdn.pixabay.com/photo/2015/05/18/23/53/backpacker-772991_1280.jpg" style="height: 83%; padding-left: 7px; padding-top: 58px; width: 18.5%;">
+                    
+                    <button class="back_btn"> <i class='bx bx-chevron-right' ></i></button>
+                </div>
+                <!-- 끝-->
+
+                <div style="border:solid 1px rgb(255, 255, 255); background-color: #ffffff ; margin: 0px 60px; height:130px; padding-left: 80px;">
+                    <div style="display: flex; flex-direction: row; justify-content: space-between;">
+                        <div style="display: flex; flex-direction: row; align-items: center;">
+                            <div class = "filmbox">
+                                <a href="#">
+                                <img class="profile" 
+                                    src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png">
+                                </a>
+                            </div>
+                            <div style="font-size: 20px;">
+                                nickname
+                            </div>
+                        </div>
+                        <div style="padding: 10px;">
+                            <a href="#">
+                                <i class='bx bx-heart filmboxicon' ></i>
+                            </a>
+                            <a href="#">
+                                    <i class='bx bx-message-rounded-dots filmboxicon'></i>
+                            </a>
+                            <a href="#">
+                                <i class='bx bx-bookmark filmboxicon' ></i>
+                            </a>
+                        </div>
+                        </div>
+                        <div style="padding: 15px 20px">
+                            <div>좋아요 123개</div>
+                            <div style="padding-top: 10px;">Film information text or #hash</div>
+                        </div>
+                    </div>
+                </div>
+
+                </div>
+        </div>
+    </div>
+</div>
+<!--
+    <script>
+        document.querySelector('back_btn').addEventListener('click', function(){
+            document.querySelector('inner').style.transform='translate(-17vw)';
+        })
+    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+-->
+
 </body>
 </html>

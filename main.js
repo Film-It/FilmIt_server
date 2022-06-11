@@ -1,25 +1,33 @@
 const express = require("express"),
 	app = express(),
+	bodyParser = require('body-parser'),
 	homeController = require("./controllers/homeController"),
 	loginController = require("./controllers/loginController"),
 	userController = require("./controllers/userController"),
 	signupController = require("./controllers/signupController"),
+	cookieParser = require('cookie-parser'),
 	layouts = require("express-ejs-layouts"),
-	db = require("./models/index");
+	db = require("./models/index"),
+  pageRouter = require('./routes/pages');
+
+const { isLoggedIn, isNotLoggedIn } = require('./routes/middlewares');
 
 app.set("port", process.env.PORT || 80);
 app.set("view engine", "ejs");
-app.engine("html", require('ejs').renderFile);
+app.engine("ejs", require('ejs').renderFile);
 app.use('/public', express.static(__dirname + '/public'));
 
-app.use(
-	express.urlencoded({
-		extended: false
-	})
-);
-app.use(express.json());
+const passport = require('passport');
+const passportConfig = require('./passport');
+passportConfig();
+const session = require('express-session');
+// const nunjucks = require('nunjucks');
+// nunjucks.configure('views', {
+//   express: app,
+//   watch: true
+// });
 
-db.sequelize.sync({ force: true })
+db.sequelize.sync({ force: false })
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })
@@ -27,12 +35,99 @@ db.sequelize.sync({ force: true })
     console.error(err);
   });
 
-app.get("/name", homeController.respondWithName);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(session({
+    secret:process.env.COOKIE_SECRET,
+    cookie: {
+      maxAge: 4000000
+    },
+    resave:false,
+    saveUninitialized:false
+}));
+
+//passport 이용
+app.use(passport.initialize());
+app.use(passport.session());
+// passport.use(User.createStrategy());
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
+
+// passport.serializeUser(function(user, done) {
+//   done(null, user.id);
+// });
+
+// passport.deserializeUser(function(id, done) {
+//   User.findById(id, function(err, user) {
+//     done(err, user);
+//   });
+// });
+
+// router.use((req, res, next) => {
+//   res.locals.loggedIn = req.isAuthenticated();
+//   res.locals.currentUser = req.user;
+//   next();
+// });
+
+
+  // passport.serializeUser(function(user, done) {
+	// console.log("serializeUser ", user)
+	// done(null, user.ID);
+  // });
+  
+  // passport.deserializeUser(function(id, done) {
+	//   console.log("deserializeUser id ", id)
+	//   let userinfo;
+	//   let sql = 'SELECT * FROM USER WHERE ID=?';
+	//   mysql.query(sql , [id], function (err, result) {
+	// 	if(err) console.log('mysql 에러');     
+	   
+	// 	console.log("deserializeUser mysql result : " , result);
+	// 	let json = JSON.stringify(result[0]);
+	// 	userinfo = JSON.parse(json);
+	// 	done(null, userinfo);
+	//   })    
+  // });
+  
+// router.get("/login", loginController.login);
 app.get("/login", loginController.showLogin);
-app.post("/login", loginController.postedLogin);
+
+app.post('/login', isNotLoggedIn, (req,res, next)=> {
+  passport.authenticate('local', (err, user, info) => {
+      if(err){
+          console.error(err);
+          return next(err);
+      }
+      if(info){
+          return res.status(401).send(info.reason);
+      }
+      
+      // passport.login
+      return req.login(user, async(loginErr) => {
+          if(loginErr){
+              console.error(loginErr);
+              return next(loginErr);
+          }
+
+          return res.redirect('/profile');
+      })
+  })(req, res, next);
+});
+
 app.get("/users", userController.getAllUsers);
-app.get("/signup", signupController.showSignup);
+app.get("/signup", isNotLoggedIn, signupController.showSignup);
 app.post("/signup", signupController.postedSignup);
+
+// 로그아웃
+app.get('/logout', isLoggedIn, (req, res, next) => {
+  req.logout((err) => {// req.user 객체 제거
+    if (err) { return next(err); }
+    req.session.destroy((err) => {
+    res.redirect('/login');
+    })
+  }); 
+});
 
 // //로그 아웃 처리
 // app.get('/logout',(req,res)=>{
@@ -45,6 +140,9 @@ app.post("/signup", signupController.postedSignup);
 //         res.redirect('/');
 //     });
 // });
+
+// app.get("/", homeController.showHome);
+app.use('/', pageRouter);
 
 app.listen(app.get("port"), () => {
 	console.log(`Server running at http://localhost: ${app.get("port")}`);

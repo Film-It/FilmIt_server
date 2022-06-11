@@ -3,13 +3,6 @@ const Sequelize = require('sequelize');
 module.exports = class Film extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
-        userId: {
-            type: Sequelize.INTEGER,
-            references: {
-                model: 'users',
-                key: 'id',
-            }
-        },
         title: {
             type: Sequelize.STRING(100),
             allowNull: false,
@@ -39,6 +32,11 @@ module.exports = class Film extends Sequelize.Model {
   }
 
   static associate(db) {
-	// db.Film.hasMany(db.Post);
+	db.Film.hasMany(db.Post, {
+		foreignKey: 'id',
+		allowNull: false,
+		constraints: true,
+		onDelete: 'cascade'
+	});
   }
 };
