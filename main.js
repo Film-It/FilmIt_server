@@ -5,6 +5,7 @@ const express = require("express"),
 	loginController = require("./controllers/loginController"),
 	userController = require("./controllers/userController"),
 	signupController = require("./controllers/signupController"),
+
 	cookieParser = require('cookie-parser'),
 	layouts = require("express-ejs-layouts"),
 	db = require("./models/index"),
@@ -27,7 +28,7 @@ const session = require('express-session');
 //   watch: true
 // });
 
-db.sequelize.sync({ force: false })
+db.sequelize.sync({ force: true })
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })
@@ -46,6 +47,7 @@ app.use(session({
     resave:false,
     saveUninitialized:false
 }));
+
 
 //passport 이용
 app.use(passport.initialize());
@@ -128,6 +130,11 @@ app.get('/logout', isLoggedIn, (req, res, next) => {
     })
   }); 
 });
+
+app.get('/post', isLoggedIn, (req, res, next) => {
+  res.render("post");
+});
+app.post('/post', isLoggedIn, userController.uploadPost);
 
 // //로그 아웃 처리
 // app.get('/logout',(req,res)=>{
