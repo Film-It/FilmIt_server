@@ -14,7 +14,7 @@ router.use((req, res, next) => {
 
 // 내 프로필 보기
 // 로그인이 된 상태이어야 next() 가 호출되어 res.render 가 있는 미들웨어로 넘어갈 수 있음
-router.get('/profile', isLoggedIn, (req, res) => {
+router.get('/profile/:id', isLoggedIn, (req, res) => {
     res.render('profile');
   });
   
