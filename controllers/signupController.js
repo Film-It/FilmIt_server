@@ -26,7 +26,8 @@ exports.postedSignup = async (req, res) => {
         	gender : req.body.gender
         })
         .then(function(createdUserCore){
-            res.json({result:true, message:'가입 완료되었습니다.'})
+            // res.json({result:true, message:'가입 완료되었습니다.'})
+            res.redirect('/login');
         });
     });
 };
