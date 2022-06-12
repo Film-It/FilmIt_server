@@ -30,6 +30,15 @@
         header{
             background-color: #f5f5ff;
         }
+
+        .addbtn{
+            background: rgb(39, 74, 131);
+            width: 100px;
+            height: 40px;
+            border-radius: 6px;
+        }
+
+
     </style>
 
 </head>
@@ -48,22 +57,12 @@
                 <input type="text">
              </div> 
 
-            <button type="button" class="btn btn-add dropdown-toggle"  data-bs-toggle="dropdown" aria-expanded="false" style="background-color: rgb(112, 124, 167); color: white;">
-                Add
-              </button>
-              <ul class="dropdown-menu" style="text-align:center;">
-                <li><a class="dropdown-item" href="#">
-                  <i class='bx bx-message-square-add icon' ></i>
-                    필름 추가
-                  </a>
-                </li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">
-                  <i class='bx bx-message-square-add icon' ></i>
-                    게시글 추가
-                  </a>
-              </li>
-              </ul>
+             <div>
+                <button type="button" class="addbtn btn-primary">+ Film</button>'
+                <button type="button" class="addbtn btn-primary">+ Post</button>'
+            </div>
+
+            
     </header>
 
     <nav class="sidebar" style="width: 20%;">
@@ -75,10 +74,10 @@
                 </a>
             </div>
             <div style="font-size: 25px;">
-                nickname
+                <%= user.nickname %>
             </div>
             <div>
-                @lululala123
+                @<%= user.userIdentifier %>
             </div>
         </div>
 
@@ -160,7 +159,6 @@
                 
             </div>
         </div>
-
     </nav>
 
 <!-- navigation bar 제외 영역 -->
@@ -187,7 +185,6 @@
                         <b style="font-size: 20px; padding-left: 80px;">Film Title</b>
                         <span style="color: rgb(65, 71, 78); font-size: 15px; padding-left: 5px;">2022.05.01</span>
                     </div>
-
                     <div>
                         <span style="color: rgb(28, 80, 136); font-size: 20px; justify-content: end;">5 Posts</span>
                     </div>
@@ -195,7 +192,7 @@
                 
                 <!--필름 & 이미지 넣는 곳-->
                 <div style ="height: 300px; width: 1900px; position: absolute;"> 
-                    <img src="./images/film3.png" width="100%" height="300px">
+                    <img src="https://svgsilh.com/svg/30008.svg" width="100%" height="600px">
                     
                 </div>
                 <div style="height: 300px; position: relative; padding-left: 100px; display: flex; flex-direction: row;">
@@ -225,17 +222,18 @@
                             </div>
                         </div>
                         <div style="padding: 10px;">
-                            <a href="#">
-                                <i class='bx bx-heart filmboxicon' ></i>
-                            </a>
+                            <button onclick="Togglelike()">
+                                <i class='bx bxs-heart filmboxicon' id="likebtn"></i>
+                            </button>
+
                             <a href="#">
                                     <i class='bx bx-message-rounded-dots filmboxicon'></i>
                             </a>
-                            <a href="#">
-                                <i class='bx bx-bookmark filmboxicon' ></i>
-                            </a>
-                        </div>
-                        </div>
+
+                            <button onclick="ToggleBookmark()">
+                                <i class='bx bxs-bookmark filmboxicon' id="bookmarkbtn"></i>
+                            </button>
+
                         <div style="padding: 15px 20px">
                             <div>좋아요 123개</div>
                             <div style="padding-top: 10px;">Film information text or #hash</div>
@@ -247,14 +245,29 @@
         </div>
     </div>
 </div>
-<!--
+</div>
     <script>
-        document.querySelector('back_btn').addEventListener('click', function(){
-            document.querySelector('inner').style.transform='translate(-17vw)';
-        })
+        const likebtn = document.getElementById('likebtn');
+        function Togglelike(){
+            if (likebtn.style.color == "red") {
+                likebtn.style.color = "grey"
+            }
+            else{
+                likebtn.style.color = "red"
+            }
+        }
+        
+        const bookmarkbtn = document.getElementById('bookmarkbtn');
+        function ToggleBookmark(){
+        if (bookmarkbtn.style.color == "rgb(39, 74, 131)") {
+            bookmarkbtn.style.color = "grey"
+        }
+        else{
+            bookmarkbtn.style.color = "rgb(39, 74, 131)"
+            }
+        }
+
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
--->
 
 </body>
 </html>

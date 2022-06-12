@@ -223,6 +223,8 @@ header .logo a{
     align-items: center;
     font-size: 30px;
     color:#3a3b3c;
+    border:none;
+    outline: none;
 }
 
 /*
