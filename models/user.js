@@ -52,6 +52,12 @@ module.exports = class User extends Sequelize.Model {
 }
 
 static associate(db) {
+	db.User.hasMany(db.Film, {
+		foreignKey: 'id',
+		allowNull: false,
+		constraints: true,
+		onDelete: 'cascade'
+	});
 	db.User.hasMany(db.Comment, {
 		foreignKey: 'id',
 		allowNull: false,

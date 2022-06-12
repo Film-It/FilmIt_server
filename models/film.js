@@ -7,7 +7,7 @@ module.exports = class Film extends Sequelize.Model {
             type: Sequelize.STRING(100),
             allowNull: false,
         },
-        introduction: {
+   /*     introduction: {
             type: Sequelize.STRING(100),
             allowNull: false,
         },
@@ -16,7 +16,7 @@ module.exports = class Film extends Sequelize.Model {
         type: Sequelize.STRING,
         allowNull: false,
       },
-
+*/
       isprivate: {
           type: Sequelize.BOOLEAN,
           defaultValue: false,
@@ -32,6 +32,7 @@ module.exports = class Film extends Sequelize.Model {
   }
 
   static associate(db) {
+  db.Film.belongsTo(db.User);
 	db.Film.hasMany(db.Post, {
 		foreignKey: 'id',
 		allowNull: false,
