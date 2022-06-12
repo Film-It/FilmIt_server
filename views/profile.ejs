@@ -32,13 +32,11 @@
         }
 
         .addbtn{
-            background: rgb(39, 74, 131);
+            background-color: rgb(39,74,131);
             width: 100px;
             height: 40px;
             border-radius: 6px;
         }
-
-
     </style>
 
 </head>
@@ -55,14 +53,12 @@
             <div class="search-field">
                 <i class='bx bx-search'></i>
                 <input type="text">
-             </div> 
-
+             </div>
              <div>
                 <button type="button" class="addbtn btn-primary">+ Film</button>'
                 <button type="button" class="addbtn btn-primary">+ Post</button>'
             </div>
 
-            
     </header>
 
     <nav class="sidebar" style="width: 20%;">
@@ -74,10 +70,10 @@
                 </a>
             </div>
             <div style="font-size: 25px;">
-                <%= user.nickname %>
+                nickname
             </div>
             <div>
-                @<%= user.userIdentifier %>
+                @lululala123
             </div>
         </div>
 
@@ -90,13 +86,7 @@
             <div>
                 <a href="#">
                     <div>123</div>
-                    <span>Followers</span>
-                </a>
-            </div>
-            <div>
-                <a href="#">
-                    <div>123</div>
-                    <span>Following</span>
+                    <span>Subscribers</span>
                 </a>
             </div>
         </div>
@@ -120,7 +110,7 @@
                     </li>
 
                     <li class="nav-link">
-                        <a href="#"  onclick="location.href='dm'">
+                        <a href="#">
                             <i class='bx bxs-paper-plane icon'></i>
                             <span class="text nav-text">Direct Message</span>
                         </a>
@@ -151,7 +141,7 @@
 
             <div class="bottom-content"  style="display:flex; flex-direction:column; position: relative; top:-250px; right: -28px;">
                 <li class="nav-link">
-                    <a href="#"  onclick="location.href='logout'">
+                    <a href="#">
                         <i class='bx bx-log-out icon' ></i>
                         <span class="text nav-text">Logout</span>
                     </a>
@@ -159,6 +149,7 @@
                 
             </div>
         </div>
+
     </nav>
 
 <!-- navigation bar 제외 영역 -->
@@ -166,10 +157,10 @@
     <div style="width: 80%; height: 1000px;">
         <div class="header">  </div>
         <div class="films_post" style="display:flex; flex-direction:row; margin: 15px; height: 60px; border-top: solid 1.5px lightgray; border-bottom: solid 1.5px lightgray;">
-                <a class="button" href="#" onclick="location.href='fillm'" style="border-right: solid 1.5px lightgray;">
+                <a class="button" href="#" style="border-right: solid 1.5px lightgray;">
                         Films
                 </a>
-                <a class="button" href="#" onclick="location.href='post'">
+                <a class="button" href="#">
                         Posts
                 </a>
         </div>
@@ -185,6 +176,7 @@
                         <b style="font-size: 20px; padding-left: 80px;">Film Title</b>
                         <span style="color: rgb(65, 71, 78); font-size: 15px; padding-left: 5px;">2022.05.01</span>
                     </div>
+
                     <div>
                         <span style="color: rgb(28, 80, 136); font-size: 20px; justify-content: end;">5 Posts</span>
                     </div>
@@ -192,7 +184,7 @@
                 
                 <!--필름 & 이미지 넣는 곳-->
                 <div style ="height: 300px; width: 1900px; position: absolute;"> 
-                    <img src="../public/images/film.png" width="100%" height="600px">
+                    <img src="../public/images/film.png" width="100%" height="300px">
                     
                 </div>
                 <div style="height: 300px; position: relative; padding-left: 100px; display: flex; flex-direction: row;">
@@ -233,7 +225,8 @@
                             <button onclick="ToggleBookmark()">
                                 <i class='bx bxs-bookmark filmboxicon' id="bookmarkbtn"></i>
                             </button>
-
+                    </div>
+                        </div>
                         <div style="padding: 15px 20px">
                             <div>좋아요 123개</div>
                             <div style="padding-top: 10px;">Film information text or #hash</div>
@@ -245,29 +238,29 @@
         </div>
     </div>
 </div>
-</div>
-    <script>
-        const likebtn = document.getElementById('likebtn');
-        function Togglelike(){
-            if (likebtn.style.color == "red") {
-                likebtn.style.color = "grey"
-            }
-            else{
-                likebtn.style.color = "red"
-            }
-        }
-        
-        const bookmarkbtn = document.getElementById('bookmarkbtn');
-        function ToggleBookmark(){
-        if (bookmarkbtn.style.color == "rgb(39, 74, 131)") {
-            bookmarkbtn.style.color = "grey"
+<script>
+    const likebtn = document.getElementById('likebtn');
+    function Togglelike(){
+        if (likebtn.style.color == "red") {
+            likebtn.style.color = "grey"
         }
         else{
-            bookmarkbtn.style.color = "rgb(39, 74, 131)"
-            }
+            likebtn.style.color = "red"
         }
+    }
+    
+    const bookmarkbtn = document.getElementById('bookmarkbtn');
+    function ToggleBookmark(){
+    if (bookmarkbtn.style.color == "rgb(39, 74, 131)") {
+        bookmarkbtn.style.color = "grey"
+    }
+    else{
+        bookmarkbtn.style.color = "rgb(39, 74, 131)"
+        }
+    }
 
-    </script>
+</script>
+
 
 </body>
 </html>
