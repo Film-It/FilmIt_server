@@ -28,7 +28,7 @@ const session = require('express-session');
 //   watch: true
 // });
 
-db.sequelize.sync({ force: true })
+db.sequelize.sync({ alter: true })
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })
@@ -112,7 +112,7 @@ app.post('/login', isNotLoggedIn, (req,res, next)=> {
               return next(loginErr);
           }
 
-          return res.redirect('/profile');
+          return res.redirect(`/profile/${user.userIdentifier}`);
       })
   })(req, res, next);
 });
@@ -122,7 +122,7 @@ app.get("/signup", isNotLoggedIn, signupController.showSignup);
 app.post("/signup", signupController.postedSignup);
 
 // 로그아웃
-app.get('/logout', isLoggedIn, (req, res, next) => {
+app.get('/profile/logout', isLoggedIn, (req, res, next) => {
   req.logout((err) => {// req.user 객체 제거
     if (err) { return next(err); }
     req.session.destroy((err) => {
@@ -131,10 +131,33 @@ app.get('/logout', isLoggedIn, (req, res, next) => {
   }); 
 });
 
-app.get('/post', isLoggedIn, (req, res, next) => {
+app.get('/profile/film', isLoggedIn, (req, res, next) => {
+  res.render("film");
+});
+app.post('/profile/film', isLoggedIn, async (req, res) => {
+  await db.Film.create({
+      UserId : req.user.id,
+      title : req.body.title
+  });
+
+  res.redirect(`/profile/${req.user.userIdentifier}`);
+}
+);
+
+app.get('/profile/post', isLoggedIn, (req, res, next) => {
   res.render("post");
 });
-app.post('/post', isLoggedIn, userController.uploadPost);
+app.post('/profile/post', isLoggedIn, async (req, res) => {
+  await db.Post.create({
+      FilmId : req.film.id,
+      title : req.body.post_title,
+      content : req.body.content
+  });
+
+  res.redirect(`/profile/${req.user.userIdentifier}`);
+}
+);
+
 
 // //로그 아웃 처리
 // app.get('/logout',(req,res)=>{
