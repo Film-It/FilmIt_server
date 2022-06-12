@@ -52,12 +52,6 @@ module.exports = class User extends Sequelize.Model {
 }
 
 static associate(db) {
-	db.User.hasMany(db.Film, {
-		foreignKey: 'id',
-		allowNull: false,
-		constraints: true,
-		onDelete: 'cascade'
-	});
 	db.User.hasMany(db.Comment, {
 		foreignKey: 'id',
 		allowNull: false,
@@ -70,18 +64,20 @@ static associate(db) {
 		constraints: true,
 		onDelete: 'cascade'
 	});
-    db.User.belongsToMany(db.User, {
-		foreignKey: 'followingId',
-		as: 'Followers',
-		through: 'follows',
-		foreignKeyConstraint:true
-	  });
-	  db.User.belongsToMany(db.User, {
-		foreignKey: 'followerId',
-		as: 'Followings',
-		through: 'follows',
-		foreignKeyConstraint:true
-	  });
+    // db.User.belongsToMany(db.User, {
+	// 	foreignKey: 'followingId',
+	// 	as: 'Followers',
+	// 	through: 'follows',
+	// 	foreignKeyConstraint:true,
+	// 	onDelete: 'cascade'
+	//   });
+	//   db.User.belongsToMany(db.User, {
+	// 	foreignKey: 'followerId',
+	// 	as: 'Followings',
+	// 	through: 'follows',
+	// 	foreignKeyConstraint:true,
+	// 	onDelete: 'cascade'
+	//   });
     db.User.belongsToMany(db.Post, {
       foreignKey: 'id',
       through: 'Like',
@@ -96,4 +92,9 @@ static associate(db) {
 	  onDelete: 'cascade'
     });
 }
+
+// async postCount(id) {
+// 	let postCount = await Sequelize.query("SELECT COUNT(*) FROM Posts WHERE userId = " + id + ";", { type: Sequelize.SELECT });
+// 	return postCount;
+// }
 };
