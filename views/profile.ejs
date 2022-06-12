@@ -55,8 +55,8 @@
                 <input type="text">
              </div>
              <div>
-                <button type="button" class="addbtn btn-primary">+ Film</button>'
-                <button type="button" class="addbtn btn-primary">+ Post</button>'
+                <button type="button" onclick="location.href='film'" class="addbtn btn-primary">+ Film</button>'
+                <button type="button" onclick="location.href='post'" class="addbtn btn-primary">+ Post</button>'
             </div>
 
     </header>
@@ -70,10 +70,10 @@
                 </a>
             </div>
             <div style="font-size: 25px;">
-                nickname
+                <%= user.nickname %>
             </div>
             <div>
-                @lululala123
+                @<%= user.userIdentifier %>
             </div>
         </div>
 
@@ -141,7 +141,7 @@
 
             <div class="bottom-content"  style="display:flex; flex-direction:column; position: relative; top:-250px; right: -28px;">
                 <li class="nav-link">
-                    <a href="#">
+                    <a href="#" onclick="location.href='logout'">
                         <i class='bx bx-log-out icon' ></i>
                         <span class="text nav-text">Logout</span>
                     </a>
