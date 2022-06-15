@@ -4,11 +4,12 @@ const express = require("express"),
 	homeController = require("./controllers/homeController"),
 	loginController = require("./controllers/loginController"),
 	userController = require("./controllers/userController"),
-	signupController = require("./controllers/signupController"),
 	filmController = require("./controllers/filmController"),
+	postController = require("./controllers/postController"),
 
 	cookieParser = require('cookie-parser'),
 	layouts = require("express-ejs-layouts"),
+  multer = require("multer"),
 	db = require("./models/index"),
   pageRouter = require('./routes/pages');
 
@@ -128,8 +129,8 @@ app.post('/login', isNotLoggedIn, (req,res, next)=> {
 // });
 
 app.get("/users", userController.getAllUsers);
-app.get("/signup", isNotLoggedIn, signupController.showSignup);
-app.post("/signup", signupController.postedSignup);
+app.get("/signup", isNotLoggedIn, userController.showSignup);
+app.post("/signup", userController.postedSignup);
 
 // 로그아웃
 app.get('/profile/logout', isLoggedIn, (req, res, next) => {
@@ -141,48 +142,22 @@ app.get('/profile/logout', isLoggedIn, (req, res, next) => {
   }); 
 });
 
+//필름 생성 화면 get, post
 app.get('/profile/film', isLoggedIn, (req, res) => {
   res.render("film");
 });
-app.post('/profile/film', isLoggedIn, async (req, res) => {
-  await db.Film.create({
-      UserId : req.user.id,
-      title : req.body.title
-  });
+app.post('/profile/film', isLoggedIn, filmController.createFilm);
 
-  res.redirect(`/profile/${req.user.userIdentifier}`);
-}
-);
-
-app.get('/profile/post', isLoggedIn, (req, res, next) => {
-  res.render("post");
+//게시글 생성 화면 get, post
+app.get('/profile/post', isLoggedIn, filmController.getAllFilmTitles, (req, res) => {
+  res.render('post');
 });
-//필름 생성
-app.post('/profile/post', isLoggedIn, async (req, res) => {
-  await db.Post.create({
-      FilmId : req.film.id,
-      title : req.body.post_title,
-      content : req.body.content
-  });
-
-  res.redirect(`/profile/${req.user.userIdentifier}`);
-}
-);
-
-
-// //로그 아웃 처리
-// app.get('/logout',(req,res)=>{
-//     //passport 정보 삭제
-//     req.logout();
-//     //서버측 세션 삭제
-//     req.session.destroy(()=>{
-//         //클라이언트 측 세션 암호화 쿠키 삭제
-//         res.cookie('connect.sid','',{maxAge:0});
-//         res.redirect('/');
-//     });
+app.post('/profile/post', isLoggedIn, postController.createPosts);
+// app.get('/profile/:id/post', (req, res) => {
+//   res.render("post");
 // });
 
-// app.get("/", homeController.showHome);
+//프로필 화면 랜더링
 app.use('/profile/:id', isLoggedIn, userController.findUser, filmController.getAllFilms, (req, res) => {
   res.render('profile');
 });

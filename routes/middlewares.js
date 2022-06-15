@@ -1,5 +1,6 @@
 exports.isLoggedIn = (req, res, next) => {
     if (req.isAuthenticated()) {
+      // res.locals.user = req.user;
       next(); // 로그인 상태면 다음 미들웨어 호출
     } else {
       res.status(403).send('로그인 필요');
