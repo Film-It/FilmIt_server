@@ -29,6 +29,7 @@ module.exports = class User extends Sequelize.Model {
 	},
 	profileIcon: {
 		type: Sequelize.STRING,
+		defaultValue: "../public/images/defaultProfileIcon.png"
 	},
 	introduction: {
 		type: Sequelize.STRING,
@@ -55,20 +56,20 @@ static associate(db) {
 	db.User.hasMany(db.Film, {
 		foreignKey: 'id',
 		allowNull: false,
-		constraints: true,
-		onDelete: 'cascade'
+		// constraints: true,
+		// onDelete: 'cascade'
 	});
 	db.User.hasMany(db.Comment, {
 		foreignKey: 'id',
 		allowNull: false,
-		constraints: true,
-		onDelete: 'cascade'
+		// constraints: true,
+		// onDelete: 'cascade'
 	});
 	db.User.hasMany(db.Chattingroom, {
 		foreignKey: 'id',
 		allowNull: false,
-		constraints: true,
-		onDelete: 'cascade'
+		// constraints: true,
+		// onDelete: 'cascade'
 	});
     // db.User.belongsToMany(db.User, {
 	// 	foreignKey: 'followingId',
@@ -94,13 +95,8 @@ static associate(db) {
       foreignKey: 'id',
 	  as: 'Bookmarked',
 	  allowNull: false,
-	  constraints: true,
-	  onDelete: 'cascade'
+	//   constraints: true,
+	//   onDelete: 'cascade'
     });
 }
-
-// async postCount(id) {
-// 	let postCount = await Sequelize.query("SELECT COUNT(*) FROM Posts WHERE userId = " + id + ";", { type: Sequelize.SELECT });
-// 	return postCount;
-// }
 };

@@ -21,16 +21,13 @@ app.set("view engine", "ejs");
 app.engine("ejs", require('ejs').renderFile);
 app.use('/public', express.static(__dirname + '/public'));
 
+//passport, session
 const passport = require('passport');
 const passportConfig = require('./passport');
 passportConfig();
 const session = require('express-session');
-// const nunjucks = require('nunjucks');
-// nunjucks.configure('views', {
-//   express: app,
-//   watch: true
-// });
 
+//sequelize 연결
 db.sequelize.sync({ alter: false })
   .then(() => {
     console.log('데이터베이스 연결 성공');
@@ -39,6 +36,7 @@ db.sequelize.sync({ alter: false })
     console.error(err);
   });
 
+//bodyParser
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
@@ -56,7 +54,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-//multer
+//multer 이용
 const storage  = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, "public/images/");
@@ -67,8 +65,8 @@ const storage  = multer.diskStorage({
 });
 const uploadWithOriginalFilename = multer({ storage: storage });
 
+//로그인 화면
 app.get("/login", loginController.showLogin);
-
 app.post('/login', isNotLoggedIn, (req,res, next)=> {
   passport.authenticate('local', (err, user, info) => {
       if(err){
@@ -91,16 +89,10 @@ app.post('/login', isNotLoggedIn, (req,res, next)=> {
   })(req, res, next);
 });
 
-// app.use((req, res, next) => {
-//   res.locals.user = req.user;
-//   res.locals.films = [];
-//   res.locals.followerCount = 0;
-//   res.locals.followingCount = 0;
-//   res.locals.followerIdList = [];
-//   next();
-// });
 
-app.get("/users", userController.getAllUsers);
+// app.get("/users", userController.getAllUsers);
+
+//회원가입 화면
 app.get("/signup", isNotLoggedIn, userController.showSignup);
 app.post("/signup", userController.postedSignup);
 
@@ -112,6 +104,15 @@ app.get('/profile/logout', isLoggedIn, (req, res, next) => {
     res.redirect('/login');
     })
   }); 
+});
+
+//회원 탈퇴
+app.get('/userDelete', (req, res) => {
+  res.render('userDelete');
+});
+app.post('/userDelete', postController.getAllPosts, userController.deleteUser);
+app.get('/goodbye', (req, res) => {
+  res.render('goodbye');
 });
 
 //필름 생성 화면 get, post
@@ -139,6 +140,7 @@ app.post('/profile/settings', isLoggedIn, uploadWithOriginalFilename.single('pro
 app.use('/profile/:id', isLoggedIn, userController.findUser, filmController.getAllFilms, postController.getAllPosts, (req, res) => {
   res.render('profile');
 });
+
 // app.use('/', pageRouter);
 
 app.listen(app.get("port"), () => {

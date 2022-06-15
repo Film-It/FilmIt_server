@@ -75,7 +75,7 @@
             <div class = "box">
                 <a href="#">
                     <img class="profile" 
-                    src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png" alt="">
+                    src="../<%= user.profileIcon %>" alt="">
                 </a>
             </div>
             <div style="font-size: 25px;">
@@ -89,7 +89,7 @@
         <div style="display:flex; flex-direction:row; justify-content:center; justify-content:space-around; 
         align-items: center; text-align: center; position:relative; top:100px;">
             <div>
-                <div>123</div>
+                <div><%= posts.length %></div>
                 <span>Posts</span>
             </div>
             <div>
@@ -133,7 +133,7 @@
                     </li>
 
                     <li class="nav-link">
-                        <a href="#">
+                        <a href="#" onclick="location.href='settings'">
                             <i class='bx bxs-cog icon'></i>
                             <span class="text nav-text">Settings</span>
                         </a>
@@ -216,7 +216,7 @@
                             <div class = "filmbox">
                                 <a href="#">
                                 <img class="profile" 
-                                    src="http://file3.instiz.net/data/file3/2021/05/31/c/3/9/c39740894a446ef2335cfb6818eb579f.png">
+                                    src="../<%= user.profileIcon %>">
                                 </a>
                             </div>
                             <div style="font-size: 20px;">

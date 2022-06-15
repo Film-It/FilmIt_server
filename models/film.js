@@ -36,8 +36,8 @@ module.exports = class Film extends Sequelize.Model {
 	db.Film.hasMany(db.Post, {
 		foreignKey: 'id',
 		allowNull: false,
-		constraints: true,
-		onDelete: 'cascade'
+		// constraints: true,
+		// onDelete: 'cascade'
 	});
   }
 };

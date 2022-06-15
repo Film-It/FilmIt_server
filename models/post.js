@@ -31,15 +31,15 @@ module.exports = class Post extends Sequelize.Model {
     db.Post.hasMany(db.Comment, {
       foreignKey: 'id',
       allowNull: false,
-      constraints: true,
-      onDelete: 'cascade'
+      // constraints: true,
+      // onDelete: 'cascade'
     });
     db.Post.belongsToMany(db.User, {
       through: 'bookmark',
       foreignKey: 'id',
 	    allowNull: false,
-	    constraints: true,
-	    onDelete: 'cascade'
+	    // constraints: true,
+	    // onDelete: 'cascade'
     });
     db.Post.belongsToMany(db.User, {
       foreignKey: 'id',

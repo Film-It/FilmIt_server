@@ -1,7 +1,9 @@
 const model = require("../models"),
 User = model.User,
+Film = model.Film,
 Post = model.Post;
 const bcrypt = require('bcrypt');
+// const { where } = require("sequelize/types");
 
 exports.getAllUsers = async (req, res, next) => {
     try{
@@ -76,5 +78,37 @@ exports.editUser = async (req, res, next) => {
         res.redirect(`/profile/${req.body.userIdentifier}`);
     } catch(err) {
         console.log(`Error updating user by ID: ${err.message}`);
+    }
+};
+
+exports.deleteUser = async (req, res, next) => {
+    try {
+        // 비밀번호 비교
+        let user = req.user;
+        let userId = req.user.id;
+        const result = await bcrypt.compare(req.body.passwd, user.passwd);
+        if(result){
+            req.logout((err) => {// req.user 객체 제거
+            if (err) { return next(err); }
+            req.session.destroy((err) => {
+            })
+          });
+        //   await Post.destroy({
+        //     where: {FilmId : 
+        //     where: }
+        // });
+          await Film.destroy({
+            where: {UserId : user.id}
+          });
+            await user.destroy({
+                where: {id : userId}
+              });
+            res.redirect('/goodbye');
+        }
+        else{
+            res.json({result:false, message:'비밀번호가 일치하지 않습니다.'})
+        }
+    } catch(err){
+        console.log(`Error deleting user: ${err.message}`);
     }
 };

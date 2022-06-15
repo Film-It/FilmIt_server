@@ -56,3 +56,7 @@ exports.createFilm = async (req, res) => {
   
     res.redirect(`/profile/${req.user.userIdentifier}`);
 };
+
+exports.deleteFilm = async (req, res, next) => {
+
+};
