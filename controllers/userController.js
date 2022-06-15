@@ -16,15 +16,15 @@ exports.getAllUsers = async (req, res, next) => {
     next();
 };
 
-exports.uploadPost = async (req, res) => {
-    await model.Post.create({
-        userId : req.body.userId,
-        title : req.body.post_title,
-        content : req.body.content
-    });
+// exports.uploadPost = async (req, res) => {
+//     await model.Post.create({
+//         userId : req.body.userId,
+//         title : req.body.post_title,
+//         content : req.body.content
+//     });
 
-    res.redirect('/profile');
-}
+//     res.redirect('/profile');
+// }
 
 //main.js에서 URL로 넘어오는 :id 통해서 현재 유저 찾는 메서드
 exports.findUser = async (req, res, next) => {

@@ -10,6 +10,7 @@ const express = require("express"),
 	cookieParser = require('cookie-parser'),
 	layouts = require("express-ejs-layouts"),
   multer = require("multer"),
+  fs = require('fs'),
 	db = require("./models/index"),
   pageRouter = require('./routes/pages');
 
@@ -54,47 +55,18 @@ app.use(session({
 //passport 이용
 app.use(passport.initialize());
 app.use(passport.session());
-// passport.use(User.createStrategy());
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
 
-// passport.serializeUser(function(user, done) {
-//   done(null, user.id);
-// });
+//multer
+const storage  = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, "public/images/");
+  },
+  filename(req, file, cb) {
+    cb(null, `${Date.now()}__${file.originalname}`);
+  },
+});
+const uploadWithOriginalFilename = multer({ storage: storage });
 
-// passport.deserializeUser(function(id, done) {
-//   User.findById(id, function(err, user) {
-//     done(err, user);
-//   });
-// });
-
-// router.use((req, res, next) => {
-//   res.locals.loggedIn = req.isAuthenticated();
-//   res.locals.currentUser = req.user;
-//   next();
-// });
-
-
-  // passport.serializeUser(function(user, done) {
-	// console.log("serializeUser ", user)
-	// done(null, user.ID);
-  // });
-  
-  // passport.deserializeUser(function(id, done) {
-	//   console.log("deserializeUser id ", id)
-	//   let userinfo;
-	//   let sql = 'SELECT * FROM USER WHERE ID=?';
-	//   mysql.query(sql , [id], function (err, result) {
-	// 	if(err) console.log('mysql 에러');     
-	   
-	// 	console.log("deserializeUser mysql result : " , result);
-	// 	let json = JSON.stringify(result[0]);
-	// 	userinfo = JSON.parse(json);
-	// 	done(null, userinfo);
-	//   })    
-  // });
-  
-// router.get("/login", loginController.login);
 app.get("/login", loginController.showLogin);
 
 app.post('/login', isNotLoggedIn, (req,res, next)=> {
@@ -152,13 +124,13 @@ app.post('/profile/film', isLoggedIn, filmController.createFilm);
 app.get('/profile/post', isLoggedIn, filmController.getAllFilmTitles, (req, res) => {
   res.render('post');
 });
-app.post('/profile/post', isLoggedIn, postController.createPosts);
+app.post('/profile/post', isLoggedIn, uploadWithOriginalFilename.single('image'), postController.createPosts);
 // app.get('/profile/:id/post', (req, res) => {
 //   res.render("post");
 // });
 
 //프로필 화면 랜더링
-app.use('/profile/:id', isLoggedIn, userController.findUser, filmController.getAllFilms, (req, res) => {
+app.use('/profile/:id', isLoggedIn, userController.findUser, filmController.getAllFilms, postController.getAllPosts, (req, res) => {
   res.render('profile');
 });
 // app.use('/', pageRouter);

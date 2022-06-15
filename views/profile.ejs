@@ -196,12 +196,16 @@
                 <div style="height: 300px; position: relative; padding-left: 75px; display: flex; flex-direction: row;">
                     <button class="front_btn" ><i class='bx bx-chevron-left'></i></button>
                     
-                    <img src="https://cdn.pixabay.com/photo/2017/08/02/00/16/couple-2568954_1280.jpg" style="height: 83%; padding-left: 12px; padding-top: 58px; width: 19%;">
+                    <% posts.forEach(post => { 
+                        if(post.FilmId === film.id) {%>
+                        <img src="../<%= post.img %>" style="height: 83%; padding-left: 12px; padding-top: 58px; width: 19%;">
+                        <% } %>
+                    <!-- <img src="https://cdn.pixabay.com/photo/2017/08/02/00/16/couple-2568954_1280.jpg" style="height: 83%; padding-left: 12px; padding-top: 58px; width: 19%;">
                     <img src="https://cdn.pixabay.com/photo/2016/02/07/19/50/mountaineer-1185474_1280.jpg" style="height: 83%; padding-left: 7px; padding-top: 58px; width: 18.5%;">
                     <img src="https://cdn.pixabay.com/photo/2017/03/07/20/35/climb-2125148_1280.jpg" style="height: 83%; padding-left: 7px; padding-top: 58px; width: 18.5%;">
                     <img src="https://cdn.pixabay.com/photo/2016/11/22/19/25/man-1850181_1280.jpg" style="height: 83%; padding-left: 7px; padding-top: 58px; width: 18.5%;">
-                    <img src="https://cdn.pixabay.com/photo/2015/05/18/23/53/backpacker-772991_1280.jpg" style="height: 83%; padding-left: 7px; padding-top: 58px; width: 18.5%;">
-                    
+                    <img src="https://cdn.pixabay.com/photo/2015/05/18/23/53/backpacker-772991_1280.jpg" style="height: 83%; padding-left: 7px; padding-top: 58px; width: 18.5%;"> -->
+                    <% }); %>
                     <button class="back_btn"> <i class='bx bx-chevron-right' ></i></button>
                 </div>
                 <!-- 끝-->

@@ -9,7 +9,7 @@
         
     </head>
     <body>
-    <form action="/profile/post" method="post">
+    <form action="/profile/post" method="post" enctype="multipart/form-data">
 
         <!-- wrapper -->
         <div id="wrapper">
@@ -38,6 +38,16 @@
                     </h3>
                     <span class="box title">
                         <input type="text" id="post_title" name="post_title" maxlength="100">
+                    </span>
+                </div>
+
+                <!-- IMAGE -->
+                <div>
+                    <h3 class="image">
+                        <label for="image">이미지</label>
+                    </h3>
+                    <span class="box title">
+                        <input type="file" id="image" name="image" maxlength="200">
                     </span>
                 </div>
 
