@@ -17,6 +17,20 @@
             <!-- content-->
             <div id="content">
 
+                <!-- SELECT FILM -->
+                <div>
+                    <h3 class="film"><label for="film">필름 선택</label></h3>
+                    <span class="filmbox">
+                        <select id="film" name="film" class="sel">
+                            <option>필름 선택</option>
+                            <% filmTitles.forEach(film => { %>
+                            <option value="<%= film.id %>"><%= film.title %></option>
+                            <% }) %>
+                        </select>                            
+                    </span>
+                    <span class="error_next_box">필수 정보입니다.</span>
+                </div>
+
                 <!-- TITLE -->
                 <div>
                     <h3 class="post_title">
@@ -31,7 +45,7 @@
                  <div>
                     <h3 class="post_content"><label for="content"> 내용</label></h3>
                     <span class="box content">
-                        <input style="width:80%; height: 100px; background-color:rgb(28, 80, 136);" type="text" id="content" name="content" maxlength="1000">
+                        <input style="width:80%; height: 100px;" type="text" id="content" name="content" maxlength="1000">
                     </span> 
                 </div>
 
