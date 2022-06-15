@@ -5,13 +5,14 @@ const express = require("express"),
 	loginController = require("./controllers/loginController"),
 	userController = require("./controllers/userController"),
 	signupController = require("./controllers/signupController"),
+	filmController = require("./controllers/filmController"),
 
 	cookieParser = require('cookie-parser'),
 	layouts = require("express-ejs-layouts"),
 	db = require("./models/index"),
   pageRouter = require('./routes/pages');
 
-const { isLoggedIn, isNotLoggedIn } = require('./routes/middlewares');
+const { isLoggedIn, isNotLoggedIn} = require('./routes/middlewares');
 
 app.set("port", process.env.PORT || 80);
 app.set("view engine", "ejs");
@@ -28,7 +29,7 @@ const session = require('express-session');
 //   watch: true
 // });
 
-db.sequelize.sync({ alter: true })
+db.sequelize.sync({ alter: false })
   .then(() => {
     console.log('데이터베이스 연결 성공');
   })
@@ -117,6 +118,15 @@ app.post('/login', isNotLoggedIn, (req,res, next)=> {
   })(req, res, next);
 });
 
+// app.use((req, res, next) => {
+//   res.locals.user = req.user;
+//   res.locals.films = [];
+//   res.locals.followerCount = 0;
+//   res.locals.followingCount = 0;
+//   res.locals.followerIdList = [];
+//   next();
+// });
+
 app.get("/users", userController.getAllUsers);
 app.get("/signup", isNotLoggedIn, signupController.showSignup);
 app.post("/signup", signupController.postedSignup);
@@ -147,6 +157,7 @@ app.post('/profile/film', isLoggedIn, async (req, res) => {
 app.get('/profile/post', isLoggedIn, (req, res, next) => {
   res.render("post");
 });
+//필름 생성
 app.post('/profile/post', isLoggedIn, async (req, res) => {
   await db.Post.create({
       FilmId : req.film.id,
@@ -172,7 +183,10 @@ app.post('/profile/post', isLoggedIn, async (req, res) => {
 // });
 
 // app.get("/", homeController.showHome);
-app.use('/', pageRouter);
+app.use('/profile/:id', isLoggedIn, filmController.getAllFilms, (req, res) => {
+  res.render('profile');
+});
+// app.use('/', pageRouter);
 
 app.listen(app.get("port"), () => {
 	console.log(`Server running at http://localhost: ${app.get("port")}`);
