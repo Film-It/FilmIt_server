@@ -24,3 +24,19 @@ exports.uploadPost = async (req, res) => {
 
     res.redirect('/profile');
 }
+
+//main.js에서 URL로 넘어오는 :id 통해서 현재 유저 찾는 메서드
+exports.findUser = async (req, res, next) => {
+    const userId = req.params.id;
+    console.log(`${userId}`);
+    try{
+        let user = await User.findOne({
+            where: {userIdentifier : userId}
+        });
+        res.locals.user = user;
+        
+    } catch(err){
+        console.log(`Error finding user by :id: ${err.message}`);
+    }
+    next();
+}

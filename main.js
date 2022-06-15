@@ -141,7 +141,7 @@ app.get('/profile/logout', isLoggedIn, (req, res, next) => {
   }); 
 });
 
-app.get('/profile/film', isLoggedIn, (req, res, next) => {
+app.get('/profile/film', isLoggedIn, (req, res) => {
   res.render("film");
 });
 app.post('/profile/film', isLoggedIn, async (req, res) => {
@@ -183,7 +183,7 @@ app.post('/profile/post', isLoggedIn, async (req, res) => {
 // });
 
 // app.get("/", homeController.showHome);
-app.use('/profile/:id', isLoggedIn, filmController.getAllFilms, (req, res) => {
+app.use('/profile/:id', isLoggedIn, userController.findUser, filmController.getAllFilms, (req, res) => {
   res.render('profile');
 });
 // app.use('/', pageRouter);

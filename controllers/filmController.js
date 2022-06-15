@@ -3,12 +3,11 @@ User = model.User,
 Film = model.Film;
 
 exports.getAllFilms = async (req, res, next) => {
-    res.locals.user = req.user;
     try{
         let films = await Film.findAll({
             include: [{
                 model: User,
-                where: {id : req.user.id}
+                where: {userIdentifier : req.params.id}
             }],
             order: [['createdAt', 'DESC']]
         });
