@@ -14,7 +14,7 @@ const express = require("express"),
 	db = require("./models/index"),
   pageRouter = require('./routes/pages');
 
-const { isLoggedIn, isNotLoggedIn} = require('./routes/middlewares');
+const { isLoggedIn, isNotLoggedIn, localMiddleware} = require('./routes/middlewares');
 
 app.set("port", process.env.PORT || 80);
 app.set("view engine", "ejs");
@@ -128,6 +128,12 @@ app.post('/profile/post', isLoggedIn, uploadWithOriginalFilename.single('image')
 // app.get('/profile/:id/post', (req, res) => {
 //   res.render("post");
 // });
+
+//유저 정보 수정 화면 get, post
+app.get('/profile/settings', isLoggedIn, localMiddleware, (req, res) => {
+  res.render('settings');
+});
+app.post('/profile/settings', isLoggedIn, uploadWithOriginalFilename.single('profileIcon'), userController.editUser);
 
 //프로필 화면 랜더링
 app.use('/profile/:id', isLoggedIn, userController.findUser, filmController.getAllFilms, postController.getAllPosts, (req, res) => {

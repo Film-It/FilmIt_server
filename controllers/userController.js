@@ -16,16 +16,6 @@ exports.getAllUsers = async (req, res, next) => {
     next();
 };
 
-// exports.uploadPost = async (req, res) => {
-//     await model.Post.create({
-//         userId : req.body.userId,
-//         title : req.body.post_title,
-//         content : req.body.content
-//     });
-
-//     res.redirect('/profile');
-// }
-
 //main.js에서 URL로 넘어오는 :id 통해서 현재 유저 찾는 메서드
 exports.findUser = async (req, res, next) => {
     const userId = req.params.id;
@@ -57,7 +47,7 @@ exports.postedSignup = async (req, res) => {
             res.json({result:false, message:'이미 가입된 이메일입니다.'})
         }
         //데이터 삽입
-        await model.User.create({
+        await User.create({
 	        userIdentifier : req.body.userIdentifier,
         	email : req.body.email,
 	        passwd : hash,
@@ -67,8 +57,24 @@ exports.postedSignup = async (req, res) => {
         	gender : req.body.gender
         })
         .then(function(createdUserCore){
-            // res.json({result:true, message:'가입 완료되었습니다.'})
             res.redirect('/login');
         });
     });
+};
+
+//유저 정보 수정
+exports.editUser = async (req, res, next) => {
+    try {
+        let user = await User.update({
+        nickname : req.body.nickname,
+        userIdentifier : req.body.userIdentifier,
+        profileIcon : req.file.path
+        },{ where: {id : req.user.id}});
+
+        res.locals.user = user;
+        console.log("출력 안 되면 locals가 전달 안 되는 거임");
+        res.redirect(`/profile/${req.body.userIdentifier}`);
+    } catch(err) {
+        console.log(`Error updating user by ID: ${err.message}`);
+    }
 };

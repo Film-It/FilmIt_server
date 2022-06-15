@@ -16,11 +16,11 @@ exports.isLoggedIn = (req, res, next) => {
     }
   };
 
-  // exports.localMiddleware = (req, res, next) => {
-  //   res.locals.user = req.user;
+  exports.localMiddleware = (req, res, next) => {
+    res.locals.user = req.user;
   //   res.locals.films = [];
   //   res.locals.followerCount = 0;
   //   res.locals.followingCount = 0;
   //   res.locals.followerIdList = [];
-  //   next();
-  // }
+    next();
+  }
