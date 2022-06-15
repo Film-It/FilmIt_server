@@ -17,3 +17,26 @@ exports.getAllFilms = async (req, res, next) => {
     }
     next();
 };
+
+exports.getAllFilmTitles = async (req, res, next) => {
+    try{
+        let filmTitles = await Film.findAll({
+            where: {UserId : req.user.id},
+            attributes: ['id', 'title'],
+            order: [['createdAt', 'DESC']]
+        });
+        res.locals.filmTitles = filmTitles;
+    } catch(err) {
+        console.log(`Error finding filmtitles: ${err.message}`);
+    }
+    next();
+};
+
+exports.createFilm = async (req, res) => {
+    await Film.create({
+        UserId : req.user.id,
+        title : req.body.title
+    });
+  
+    res.redirect(`/profile/${req.user.userIdentifier}`);
+};
