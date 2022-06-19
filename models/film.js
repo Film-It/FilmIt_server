@@ -37,7 +37,7 @@ module.exports = class Film extends Sequelize.Model {
 		foreignKey: 'id',
 		allowNull: false,
 		// constraints: true,
-		// onDelete: 'cascade'
+		onDelete: 'cascade'
 	});
   }
 };

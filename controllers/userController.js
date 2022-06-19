@@ -93,12 +93,11 @@ exports.deleteUser = async (req, res, next) => {
             req.session.destroy((err) => {
             })
           });
-        //   await Post.destroy({
-        //     where: {FilmId : 
-        //     where: }
-        // });
+          await Post.destroy({
+            where: {UserId : userId}
+        });
           await Film.destroy({
-            where: {UserId : user.id}
+            where: {UserId : userId}
           });
             await user.destroy({
                 where: {id : userId}

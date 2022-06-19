@@ -1,8 +1,17 @@
 const Sequelize = require('sequelize');
+const { User } = require('.');
 
 module.exports = class Post extends Sequelize.Model {
   static init(sequelize) {
     return super.init({
+      UserId: {
+        type: Sequelize.INTEGER,
+        // references: {
+        //   model: User,
+        //   key: "id"
+        // },
+        allowNull: false
+      },
         title: {
             type: Sequelize.STRING(100),
             allowNull: false,
@@ -32,7 +41,7 @@ module.exports = class Post extends Sequelize.Model {
       foreignKey: 'id',
       allowNull: false,
       // constraints: true,
-      // onDelete: 'cascade'
+      onDelete: 'cascade'
     });
     db.Post.belongsToMany(db.User, {
       through: 'bookmark',

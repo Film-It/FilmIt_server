@@ -57,19 +57,19 @@ static associate(db) {
 		foreignKey: 'id',
 		allowNull: false,
 		// constraints: true,
-		// onDelete: 'cascade'
+		onDelete: 'cascade'
 	});
 	db.User.hasMany(db.Comment, {
 		foreignKey: 'id',
 		allowNull: false,
 		// constraints: true,
-		// onDelete: 'cascade'
+		onDelete: 'cascade'
 	});
 	db.User.hasMany(db.Chattingroom, {
 		foreignKey: 'id',
 		allowNull: false,
 		// constraints: true,
-		// onDelete: 'cascade'
+		onDelete: 'cascade'
 	});
     // db.User.belongsToMany(db.User, {
 	// 	foreignKey: 'followingId',

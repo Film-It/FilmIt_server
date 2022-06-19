@@ -36,6 +36,7 @@ exports.createPosts = async (req, res) => {
     console.log("여기까진 들어옴");
     res.locals.user = req.user;
     await Post.create({
+        UserId : req.user.id,
         FilmId : req.body.film,
         title : req.body.post_title,
         content : req.body.content,
